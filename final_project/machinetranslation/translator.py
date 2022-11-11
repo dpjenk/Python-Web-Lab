@@ -1,7 +1,8 @@
+"""Importing Files"""
 import os
-from ibm_watson import LanguageTranslatorV3
-from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
-from dotenv import load_dotenv
+from ibm_watson import LanguageTranslatorV3 #pylint: disable=E0401
+from ibm_cloud_sdk_core.authenticators import IAMAuthenticator #pylint: disable=E0401
+from dotenv import load_dotenv #pylint: disable=E0401
 
 load_dotenv()
 
@@ -13,16 +14,20 @@ language_translator = LanguageTranslatorV3(
     version='2018-05-01',
     authenticator=authenticator
 )
-language_translator.set_service_url("https://api.us-south.language-translator.watson.cloud.ibm.com/instances/4cca3342-aaa9-44d3-9cbf-fbc0fbac4e64")
+language_translator.set_service_url=("https://api.us-south.language-translator.watson.cloud.ibm.com/instances/4cca3342-aaa9-44d3-9cbf-fbc0fbac4e64")
 
-def englishToFrench(englishText):
-    frenchText = language_translator.translate(
-    text=englishText,
+def english_to_french(english_text):
+    """Function translating Engish to French"""
+    french_translation = language_translator.translate(
+    text=english_text,
     model_id='en-fr').get_result()
-    return frenchText.get("translations")[0].get("translation")
+    french_text = french_translation["translations"][0]["translation"]
+    return french_text
 
-def frenchToEnglish(frenchText):
-    englishText = language_translator.translate(
-    text=frenchText,
+def french_to_english(french_text):
+    """Function translating French to English"""
+    english_translation = language_translator.translate(
+    text=french_text,
     model_id='fr-en').get_result()
-    return englishText.get("translations")[0].get("translation")
+    english_text = english_translation["translations"][0]["translation"]
+    return english_text
